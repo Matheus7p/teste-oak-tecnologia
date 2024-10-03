@@ -1,4 +1,3 @@
-
 import prismaClient from "../prisma";
 
 interface CreateProductProps {
@@ -8,11 +7,15 @@ interface CreateProductProps {
   available_for_sale: boolean;
 }
 
-class CreateProductService{
-   async execute ({ name, description, value, available_for_sale}: CreateProductProps) {
-
-    if(!name || !description || !value || !available_for_sale) {
-        throw new Error("Preencha todos os campos");
+class CreateProductService {
+  async execute({
+    name,
+    description,
+    value,
+    available_for_sale,
+  }: CreateProductProps) {
+    if (!name || !description || !value || available_for_sale === undefined) {
+      throw new Error("Preencha todos os campos");
     }
 
     const product = await prismaClient.product.create({
@@ -20,12 +23,12 @@ class CreateProductService{
         name,
         description,
         value,
-        available_for_sale : true
-      }
-    })
+        available_for_sale,
+      },
+    });
 
-    return product
-   }
+    return product;
+  }
 }
 
-export { CreateProductService }
+export { CreateProductService };

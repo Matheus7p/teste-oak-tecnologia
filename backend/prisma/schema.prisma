@@ -13,7 +13,7 @@ model Product {
   name String
   description String
   value Float
-  available_for_sale Boolean
+  available_for_sale Boolean @default(true)
   created_ad DateTime? @default(now())
 
   @@map("products")
